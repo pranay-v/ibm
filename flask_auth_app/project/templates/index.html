@@ -5,6 +5,34 @@
   Wind Energy Prediction
 </h1>
 <h2 class="subtitle">
-  Get your wind output predicted here!
+  Get Current Weather Conditions Here!
 </h2>
+<h3>
+  <form method="POST" action="/">
+    <div class="control">
+    <input class="input is-medium" height=30 type="text" name="city" placeholder="City Name" autofocus="">
+  <button onclick="weather()">Go</button>
+  </div>
+  </form>
+
+</h3>
+{% if city is defined %}
+{% if error == 'no' %}
+<h3>
+    Current Weather Conditions in {{city}}
+  </h3>
+  <h4>
+    Temperature : {{temp}}<br>
+    Humidity : {{humid}}<br>
+    Pressure : {{pressure}}<br>
+    Wind Speed : {{speed}}<b></b>
+    Country : {{country}}
+  </h4>
+{% elif error == 'yes' %}
+<h3 style = "color:red">
+  <b>Enter a proper city name, {{city}} unknown</b>
+</h3>
+
+{% endif %}
+{% endif %}
 {% endblock %}
