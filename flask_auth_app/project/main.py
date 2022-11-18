@@ -66,7 +66,7 @@ def state_wise_details():
            #xarr.append(i['state'])
            yarr.append(i['cumulative_capacity_till_30_06_2021_mw_'])
         
-        fig = plt.figure(figsize = (16, 6))
+        fig = plt.figure(figsize = (16, 5))
         
         #xarr[0] = 'Andhra_Pradesh'
         #xarr[4] = 'Madhya_Pradesh'
@@ -102,7 +102,7 @@ def state_wise_details():
             yarr0.append(i['wind_energy_generation__in_mu_'])
 
 
-        fig = plt.figure(figsize = (8, 4))
+        fig = plt.figure(figsize = (12, 4))
         
         plt.bar(xarr0, yarr0, color ='maroon',align='center')
 
@@ -126,7 +126,7 @@ def state_wise_details():
         yarr1.append(21.04)
         yarr1.append(37.99)
 
-        fig = plt.figure(figsize = (8, 4))
+        fig = plt.figure(figsize = (12, 4))
         
         plt.bar(xarr1, yarr1, color ='maroon',align='center')
 
@@ -151,7 +151,7 @@ def state_wise_details():
         xarr2 = ['2014_15','2015_16','2016_17','2017_18','2018_19','2019_20','2020_21']
         yarr2 = [10147.06,7273.23, 11935.26,12358,12600.85,14126.93,13692.16]
 
-        fig = plt.figure(figsize = (10, 5))
+        fig = plt.figure(figsize = (12, 4))
         
         plt.bar(xarr2, yarr2, color ='maroon',align='center')
 
@@ -167,7 +167,38 @@ def state_wise_details():
     
     return render_template('statistics.html', plot_url=plot_url,img="yes")
         
-    
-   
 
-    return render_template('statistics.html')
+@main.route('/predict',methods=['POST'])
+@login_required
+def predict():
+
+    direction = request.form.get('direction')
+    day = request.form.get('day')
+    month = request.form.get('month')
+    hour = request.form.get('hour')
+    speed = request.form.get('meanspeed')
+
+    API_KEY = "ZDs-CVs3SY4Oc91J9avZDK7TXRNeWZd4sErddu5Yfex1"
+    token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
+    API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
+
+    mltoken = token_response.json()["access_token"]
+
+    header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + mltoken}
+
+# NOTE: manually define and pass the array(s) of values to be scored in the next linev
+    payload_scoring = {"input_data": [{"fields": [[ 'WindDirection', 'month', 'day', 'Hour', 'meanSpeed']], "values": [[direction,month,day,hour,speed]]}]}
+
+    response_scoring = requests.post('https://us-south.ml.cloud.ibm.com/ml/v4/deployments/29eded10-84e3-40e3-ad8f-3e46c3b893e8/predictions?version=2022-11-18', json=payload_scoring,
+    headers={'Authorization': 'Bearer ' + mltoken})
+    
+    if("predictions" not in response_scoring.json()):
+        prederr = True
+        return render_template("index.html",prederr = prederr)
+
+    ansarr = response_scoring.json()["predictions"][0]['values']
+    ans = ansarr[0][0]
+    negative = False
+    if ans <0:
+        negative = True
+    return render_template("index.html",prediction = True,value = ans,day = day,hour = hour, month = month, speed = speed,direction = direction,negative=negative )

@@ -5,15 +5,14 @@
   <div class="form-outline">
   
 </div>
-<ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
-  <form method="POST" action = "/statistics" >  
-  <li class="nav-item" role="presentation">
+<ul  style = "overflow:0;
+float:left;">
+  <form method="POST" action = "/statistics" style="margin-left: 0;" >  
+  <li  style = "display: inline;margin-top:1em;margin-top: 1em;">
       <input
-      class="form-control"
-      style = "width: 20em;background-color:white;"
-      onMouseOver="this.style.backgroundColor='#F5F5DC'"
-      onMouseOut="this.style.backgroundColor='#FFFFFF'"
-      id="formControlReadonly"
+      style = "padding: .3em;background-color:#F5F5DC;color: #000000;"
+      onMouseOver="this.style.backgroundColor='black';this.style.color='#f0f8ff'"
+      onMouseOut="this.style.backgroundColor='#F5F5DC';this.style.color='black'"
       type="submit"
       name = "first"
       value="State Wise Production Capacity as of 2021"
@@ -21,13 +20,11 @@
       readonly
     />    
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item" role="presentation" style = "display: inline;margin: 0;">
       <input
-      class="form-control"
-      style = "width: 20em;background-color:white;"
-      onMouseOver="this.style.backgroundColor='#F5F5DC'"
-      onMouseOut="this.style.backgroundColor='#FFFFFF'"
-      id="formControlReadonly"
+      style = "padding: .3em;background-color:#F5F5DC;color: #000000;"
+      onMouseOver="this.style.backgroundColor='black';this.style.color='#f0f8ff'"
+      onMouseOut="this.style.backgroundColor='#F5F5DC';this.style.color='black'"
       type="submit"
       name = "second"
       value="Wind Generation Growth Over the Years"
@@ -35,13 +32,11 @@
       readonly
     />
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item" role="presentation" style = "display: inline;">
       <input
-      class="form-control"
-      style = "width: 20em;background-color:white;"
-      onMouseOver="this.style.backgroundColor='#F5F5DC'"
-      onMouseOut="this.style.backgroundColor='#FFFFFF'"
-      id="formControlReadonly"
+      style = "padding: .3em;background-color:#F5F5DC;color: #000000;"
+      onMouseOver="this.style.backgroundColor='black';this.style.color='#f0f8ff'"
+      onMouseOut="this.style.backgroundColor='#F5F5DC';this.style.color='black'"
       type="submit"
       name = "third"
       value="Capacity Growth in India over the Years"
@@ -49,13 +44,11 @@
       readonly
     />
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item" role="presentation" style = "display: inline;">
       <input
-      class="form-control"
-      style = "width: 20em;background-color:white;"
-      onMouseOver="this.style.backgroundColor='#F5F5DC'"
-      onMouseOut="this.style.backgroundColor='#FFFFFF'"
-      id="formControlReadonly"
+      style = "padding: .3em;background-color:#F5F5DC;color: #000000;margin-top: 0.5em;"
+      onMouseOver="this.style.backgroundColor='black';this.style.color='#f0f8ff'"
+      onMouseOut="this.style.backgroundColor='#F5F5DC';this.style.color='black'"
       type="submit"
       name = "fourth"
       value="Wind Power Generation in TN"
@@ -68,7 +61,7 @@
   </ul>
 
 
-  <div class="tab-content" id="myTabContent0">
+  <div class="tab-content" id="myTabContent0" >
     <div
       class="tab-pane fade show active"
       id="home0"
@@ -78,12 +71,6 @@
       {% if img == "yes" %}
       <img style = "width: 100%;" src="data:image/png;base64, {{ plot_url }}">
       {% endif %}
-    </div>
-    <div class="tab-pane fade" id="profile0" role="tabpanel" aria-labelledby="profile-tab0">
-      Tab 2 content
-    </div>
-    <div class="tab-pane fade" id="contact0" role="tabpanel" aria-labelledby="contact-tab0">
-      Tab 3 content
     </div>
   </div>
 {% endblock %}

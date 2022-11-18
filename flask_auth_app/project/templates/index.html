@@ -11,7 +11,7 @@
   <form method="POST" action="/">
     <div class="control" style = "margin:0 10% 0 10%">
     <input class="input is-medium" height=30 type="text" name="city" placeholder="City Name" autofocus="">
-    <br><button onclick="weather()">Go</button>
+    <br><br><center><button type="submit" class="btn btn-dark" onclick="weather()">Go</button></center>
   </div>
   </form>
 
@@ -34,7 +34,44 @@
 <h5 style = "color:black">
   <b>Oops,{{city}} not found</b>
 </h5>
+{% endif %}
+{% endif %}
+
+<br><h3>Wind Power Prediction</h3>
+
+<h3>
+<form method="POST" action="/predict">
+  <div class="control" style = "margin:0 10% 0 10%">
+  <input class="input is-medium" height=30 type="text" name="direction" placeholder="Wind Direction (Degrees)" autofocus="">
+  <input class="input is-medium" height=30 type="text" name="month" placeholder="Month (1-12)" autofocus="">
+  <input class="input is-medium" height=30 type="text" name="day" placeholder="Day" autofocus="">
+  <input class="input is-medium" height=30 type="text" name="hour" placeholder="Hour" autofocus="">
+  <input class="input is-medium" height=30 type="text" name="meanspeed" placeholder="Wind Speed (m/s)" autofocus="">
+  <br><br><center><button type="submit" class="btn btn-dark" onclick="predict()">Predict</button></center>
+</div>
+</form>
+</h3>
+{% if prediction %}
+{% if negative %}
+{% set value = 0 %}
+{% endif %}
+<br><h4>
+  <div style = "background-color: azure;padding: 1em;color: black;margin: 0 10% 0 10%;">
+  Subject to the Below Conditions<br><br>
+  Hour : {{hour}} <br>
+  Day : {{day}}<br>
+  Month : {{month}} <br>
+  Wind Direction : {{direction}}&#176;<br>
+  Wind Speed : {{speed}} m/s<br><br>
+  The Predicted Power Produced is: {{value}} KW<br>
+  {% if negative %}
+  <br>Try tweaking some of the parameters, particularly the wind speed if no power is produced
+  {% endif %}
+</div>
+</h4>
 
 {% endif %}
+{% if prederr %}
+<h4 style = "color: black;">Please Fill in Every Field</h4>
 {% endif %}
 {% endblock %}
