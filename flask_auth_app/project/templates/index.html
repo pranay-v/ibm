@@ -2,16 +2,16 @@
 
 {% block content %}
 <h1 class="title">
-  Wind Energy Prediction
-</h1>
+  Wind Energy Prediction and Weather Report
+</h1><br>
 <h2 class="subtitle">
   Get Current Weather Conditions Here!
 </h2>
 <h3>
   <form method="POST" action="/">
-    <div class="control">
+    <div class="control" style = "margin:0 10% 0 10%">
     <input class="input is-medium" height=30 type="text" name="city" placeholder="City Name" autofocus="">
-  <button onclick="weather()">Go</button>
+    <br><button onclick="weather()">Go</button>
   </div>
   </form>
 
@@ -22,16 +22,18 @@
     Current Weather Conditions in {{city}}
   </h3>
   <h4>
+    <div style = "background-color: azure;padding: 1em;color: black;margin: 0 10% 0 10%;">
     Temperature : {{temp}}<br>
     Humidity : {{humid}}<br>
     Pressure : {{pressure}}<br>
     Wind Speed : {{speed}}<b></b>
     Country : {{country}}
+  </div>
   </h4>
 {% elif error == 'yes' %}
-<h3 style = "color:red">
-  <b>Enter a proper city name, {{city}} unknown</b>
-</h3>
+<h5 style = "color:black">
+  <b>Oops,{{city}} not found</b>
+</h5>
 
 {% endif %}
 {% endif %}
